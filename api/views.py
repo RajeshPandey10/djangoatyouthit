@@ -5,18 +5,29 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from django.http import Http404
-
-class Employees (APIView):
-    def get(self,request):
-        employees = Employee.objects.all()
-        serializer = EmployeeSerializer(employees, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-    def post (self,request):
-        serializer = EmployeeSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({"message": "Employee  created successfully", "data": serializer.data}, status=status.HTTP_201_CREATED)
-        return Response({"message": "Failed to create employee", "errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+from rest_framework import mixins,generics
+# class Employees (mixins.ListModelMixin,mixins.CreateModelMixin,mixins.DestroyModelMixin,generics.GenericAPIView):
+#         queryset = Employee.objects.all()
+#         serializer_class = EmployeeSerializer
+#         def get(self,request):
+#              return self.list(request)
+#         def post (self,request):
+#              return self.create(request)
+#         def delete (self,request,pk):
+#              return self.destroy(request,pk)
+class Employees(generics.ListCreateAPIView):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer    
+    # def get(self,request):
+    #     employees = Employee.objects.all()
+    #     serializer = EmployeeSerializer(employees, many=True)
+    #     return Response(serializer.data, status=status.HTTP_200_OK)
+    # def post (self,request):
+        # serializer = EmployeeSerializer(data=request.data)
+        # if serializer.is_valid():
+        #     serializer.save()
+        #     return Response({"message": "Employee  created successfully", "data": serializer.data}, status=status.HTTP_201_CREATED)
+        # return Response({"message": "Failed to create employee", "errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class EmployeeDetail (APIView):
