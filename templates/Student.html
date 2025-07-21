@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Crud</title>
+  </head>
+  <body>
+    <h1>Student CRUD Operations</h1>
+
+    {% if message %}
+    <div
+      style="
+        color: green;
+        padding: 10px;
+        border: 1px solid green;
+        margin: 10px 0;
+      "
+    >
+      {{ message }}
+
+      
+    </div>
+    {% endif %} {% if error %}
+    <div
+      style="color: red; padding: 10px; border: 1px solid red; margin: 10px 0"
+    >
+      {{ error }}
+    </div>
+    {% endif %}
+
+    <form
+      method="POST"
+      action="{% url 'student-create' %}"
+      style="max-width: 400px; margin-bottom: 20px"
+    >
+      {% csrf_token %}
+      <div style="margin-bottom: 15px">
+        <label for="student_id">Student ID:</label><br />
+        <input
+          type="text"
+          id="student_id"
+          name="student_id"
+          required
+          style="width: 100%; padding: 8px; margin-top: 5px"
+        />
+      </div>
+
+      <div style="margin-bottom: 15px">
+        <label for="name">Name:</label><br />
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          style="width: 100%; padding: 8px; margin-top: 5px"
+        />
+      </div>
+
+      <div style="margin-bottom: 15px">
+        <label for="faculty">Faculty:</label><br />
+        <input
+          type="text"
+          id="faculty"
+          name="faculty"
+          required
+          style="width: 100%; padding: 8px; margin-top: 5px"
+        />
+      </div>
+
+      <button
+        type="submit"
+        style="
+          background-color: #28a745;
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        "
+      >
+        Create Student
+      </button>
+    </form>
+
+    <h2>Existing Students</h2>
+    <a
+      href="{% url 'student-create' %}"
+      style="
+        text-decoration: none;
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        display: inline-block;
+        margin-bottom: 15px;
+      "
+      >Add New Student</a
+    >
+    <ul>
+      {% for student in students %}
+      <li>
+        {{ student.name }} ({{ student.student_id }}) - {{ student.faculty }}
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

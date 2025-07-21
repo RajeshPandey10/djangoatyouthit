@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Student</title>
+  </head>
+  <body>
+    <h1>Create Student</h1>
+     <form
+      method="POST"
+      action="{% url 'student-create' %}"
+      style="max-width: 400px"
+    >
+      {% csrf_token %}
+      <div style="margin-bottom: 15px">
+        <label for="student_id">Student ID:</label><br />
+        <input
+          type="text"
+          id="student_id"
+          name="student_id"
+          required
+          style="width: 100%; padding: 8px; margin-top: 5px"
+        />
+      </div>
+
+      <div style="margin-bottom: 15px">
+        <label for="name">Name:</label><br />
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          style="width: 100%; padding: 8px; margin-top: 5px"
+        />
+      </div>
+
+      <div style="margin-bottom: 15px">
+        <label for="faculty">Faculty:</label><br />
+        <input
+          type="text"
+          id="faculty"
+          name="faculty"
+          required
+          style="width: 100%; padding: 8px; margin-top: 5px"
+        />
+      </div>
+
+      <button
+        type="submit"
+        style="
+          background-color: #28a745;
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        "
+      >
+        Create Student
+      </button>
+    </form>
+
+    <!-- <form action="">
+
+      <label for="student_id">student_id</label>
+      <input id="student_id" name="student_id" type="text">
+    </form> -->
+
+    <br />
+    <a
+      href="{% url 'student-list' %}"
+      style="color: #007bff; text-decoration: none"
+      >← Back to Student List</a
+    >
+  </body>
+</html>
